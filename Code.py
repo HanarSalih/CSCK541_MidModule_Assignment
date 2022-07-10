@@ -7,6 +7,7 @@ standard. PyCharm would not run it with the errors.
 import sys  # to use maxsize to indicate that there is no edge between any two vertices
 import itertools  # from the PDF
 import unittest
+import timeit
 
 """
 The code is from the provided PDF. Graph2 is an addition
@@ -225,3 +226,25 @@ print("The following matrix shows the SHORTEST routes between every pair of vert
 print_graph(iterative_floyd(Sample_Input2))
 print("The following matrix shows the SHORTEST routes between every pair of vertices for Sample_Input2 using RECURSION")
 print_graph(recursive_floyd(Sample_Input2))
+
+"""
+The below section is a performance test to compare the performance of both approaches on both sample graphs(graph and
+graph2).
+The test is repeated for 100,000 times to take the average and get a more accurate result.
+The result is also converted to milliseconds.
+"""
+Iterative_Duration_Sample_Input1 = timeit.Timer(
+    lambda: iterative_floyd(Sample_Input1)).repeat(repeat=100000, number=1)   # The one is the multiple of the 100000
+Iterative_Duration_Sample_Input2 = timeit.Timer(
+    lambda: iterative_floyd(Sample_Input2)).repeat(repeat=100000, number=1)
+Iterative_Average = (1000 * (sum(Iterative_Duration_Sample_Input1) / len(Iterative_Duration_Sample_Input1) + (
+    sum(Iterative_Duration_Sample_Input2) / len(Iterative_Duration_Sample_Input2)))) / 2
+print("It took", Iterative_Average, "ms for the iteration")
+
+Recursive_Duration_Sample_Input1 = timeit.Timer(
+    lambda: recursive_floyd(Sample_Input1)).repeat(repeat=100000, number=1)
+Recursive_Duration_Sample_Input2 = timeit.Timer(
+    lambda: recursive_floyd(Sample_Input2)).repeat(repeat=100000, number=1)
+Recursive_Average = (1000 * (sum(Recursive_Duration_Sample_Input1) / len(Recursive_Duration_Sample_Input1) + (
+        sum(Recursive_Duration_Sample_Input2) / len(Recursive_Duration_Sample_Input2)))) / 2
+print("It took", Recursive_Average, "ms for the recursion")
