@@ -1,0 +1,117 @@
+# CSCK541_Midmodule_Assignment
+
+The main branch of this repo includes all the codes with detailed comments.
+
+Below is a summary of the major sections
+
+# THE RECURSIVE FUNCTION:
+
+The function recursive_floyd is defined to run the Floyd algorithm under the below circumstances
+distance refers to the input graphs.
+type distance: 2D matrix
+parameter i: start node
+parameter j: end node
+parameter k: intermediate node
+Parameters i,j,k should not exceed the maximum limit of the matrix which is defined as max_length
+j needs to be 1 less than the maximum limit of the matrix to run recursively without error.
+i needs to be 1 less than the maximum limit of the matrix to run recursively without error.
+There is no -1 for (k) because the function at the beginning stops the recursive process. Once complete, the number
+reaches the maximum limit which stops the recursion from calling itself since it does not fulfill the requirement of
+being less than the maximum limit of the matrix.
+
+# THE UTILITY FUNCTION
+
+The utility function prints the solution in a custom format graph.
+Nodes that are within the maximum limit of the matrix will be printed.
+Nodes that do not reach the edge will have an infinity value which in this program is defined as NO_PATH
+The graph has 7 string spaces to print NO_PATH for outcomes that are infinity and 7 digit spaces for the numbers.
+Even though the current input does not reach 7 digits, this is just for generalizing reasons.
+
+# THE UNIT TEST
+
+The unit test tests the smaller sections of a few parts of the recursive code.
+The unit test is done for Sample_Input1 only since it is almost identical to Sample_Input2.
+Unit test needs to be run before the code is run to ensure that there are no errors within the code and algorithm.
+input_graph is to name the input once. Incase if a different input(with a different name) needs to be tested,
+it can replace Sample_Input1. 5 tests will be performed,
+first test: is to ensure that the input is a list
+second test: is to ensure that the dimension sizes of the input are equal
+third test: is to ensure that all the indexes are integers
+fourth test: is to ensure that each vertex has 0 path/route to itself
+fifth test: is to ensure that the result from the algorithm is as expected
+
+The main with the unittest refers back to the class that is in the top level.
+By default, once the unit test is run, the program stops running regardless of the outcome of the test.
+the exit=False prevents the program from stopping therefore carrying on with the rest of the code.
+
+# THE PERFORMANCE TEST
+
+The performance test is done for both approaches on both sample graphs(graph and graph2).
+The test is repeated for 100,000 times to take the average and get a more accurate result
+Since Python gives the result in second and the time in this case is too small, the result is converted to millisecond.
+
+# SAMPLE OUTPUT
+```
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK
+Testing if graph variable type is list...
+Graph type test passed!
+
+Testing graph dimensions sizes...
+Graph dimensions sizes test passed!
+
+Testing if all graph items are integer...
+Graph items integer test passed!
+
+Testing if every vertex distance to self is 0...
+Vertex to self distance test passed!
+
+Testing algorithm accuracy through a known input and expected output...
+Algorithm accuracy test passed!
+
+Sample_Input1 before applying the algorithm to it:
+      0	      7	NO_PATH       8
+NO_PATH       0	      5	NO_PATH
+NO_PATH NO_PATH       0	      2
+NO_PATH NO_PATH NO_PATH       0
+
+The following matrix shows the SHORTEST routes between every pair of vertices for Sample_Input1 using ITERATION
+      0	      7	     12	      8
+NO_PATH       0	      5	      7
+NO_PATH NO_PATH       0	      2
+NO_PATH NO_PATH NO_PATH       0
+
+The following matrix shows the SHORTEST routes between every pair of vertices for Sample_Input1  using RECURSION
+      0	      7	     12	      8
+NO_PATH       0	      5	      7
+NO_PATH NO_PATH       0	      2
+NO_PATH NO_PATH NO_PATH       0
+
+---------------
+Sample_Input2 before applying the algorithm to it:
+      0	      5	NO_PATH      10
+NO_PATH       0	      3	NO_PATH
+NO_PATH NO_PATH       0	      1
+NO_PATH NO_PATH NO_PATH       0
+
+The following matrix shows the SHORTEST routes between every pair of vertices for Sample_Input2  using ITERATION
+      0	      5	      8	      9
+NO_PATH       0	      3	      4
+NO_PATH NO_PATH       0	      1
+NO_PATH NO_PATH NO_PATH       0
+
+The following matrix shows the SHORTEST routes between every pair of vertices for Sample_Input2 using RECURSION
+      0	      5	      8	      9
+NO_PATH       0	      3	      4
+NO_PATH NO_PATH       0	      1
+NO_PATH NO_PATH NO_PATH       0
+
+It took 0.026233521003450735 ms for the iteration
+It took 0.04803428453276865 ms for the recursion
+
+Process finished with exit code 0
+
+```
