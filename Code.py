@@ -228,8 +228,7 @@ print("The following matrix shows the SHORTEST routes between every pair of vert
 print_graph(recursive_floyd(Sample_Input2))
 
 """
-The below section is a performance test to compare the performance of both approaches on both sample graphs(graph and
-graph2).
+The below section is a performance test to compare the performance of both approaches on both sample graphs.
 The test is repeated for 100,000 times to take the average and get a more accurate result.
 The result is also converted to milliseconds.
 """
