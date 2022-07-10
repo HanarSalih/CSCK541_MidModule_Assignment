@@ -6,6 +6,7 @@ standard. PyCharm would not run it with the errors.
 
 import sys  # to use maxsize to indicate that there is no edge between any two vertices
 import itertools  # from the PDF
+import unittest
 
 """
 The code is from the provided PDF. Graph2 is an addition
@@ -102,6 +103,112 @@ def print_graph(distance):
                 print()
     print()
 
+
+"""
+The unit test to check the algorithm and code is below:
+"""
+
+
+class FloydUnitTesting(unittest.TestCase):
+    """
+    The below section is unit tests to test the smaller sections of a few parts of the recursive code.
+    The unit test is done for Sample_Input1 only since it is almost identical to Sample_Input2.
+    Unit test needs to be run before the code is run to ensure that there are no errors within the code and algorithm.
+    input_graph is to name the input once. Incase if a different input(with a different name) needs to be tested,
+    it can replace Sample_Input1. 5 tests will be performed,
+    first test: is to ensure that the input is a list
+    second test: is to ensure that the dimension sizes of the input are equal
+    third test: is to ensure that all the indexes are integers
+    fourth test: is to ensure that each vertex has 0 path/route to itself
+    fifth test: is to ensure that the result from the algorithm is as expected
+    """
+
+    input_graph = Sample_Input1
+
+    def test1_input_type(self):
+        """
+        Test1 checks whether the variable type is a list or not
+        """
+        print("Testing if graph variable type is list...")  # Boolean is used to test whether the case is true or # not.
+        result = True
+        if type(self.input_graph) is list:
+            for i in self.input_graph:  # i is an item in the list
+                if type(i) is not list:
+                    result = False
+                    break
+        else:
+            result = False
+        self.assertTrue(result, "The graph is not of type list")
+        print("Graph type test passed!\n")
+
+    def test2_input_dimensions_sizes(self):
+        """
+        Test2 checks whether the dimension sizes of the input are equal
+        """
+        print("Testing graph dimensions sizes...")
+        result = True
+        matrix_size = len(self.input_graph)
+        for i in self.input_graph:  # i is an item in the list
+            if len(i) != matrix_size:
+                result = False
+                break
+        self.assertTrue(result, "The dimensions of the graph are not equal")
+        print("Graph dimensions sizes test passed!\n")
+
+    def test3_input_integer(self):
+        """
+        Test3 checks whether all graph items are integer
+        """
+        print("Testing if all graph items are integer...")
+        result = True
+        matrix_size = len(self.input_graph)
+        for i in range(matrix_size):  # i is an item in the list
+            for j in range(matrix_size):  # j is an item in i
+                try:
+                    int(self.input_graph[i][j])
+                except ValueError:
+                    result = False
+        self.assertTrue(result, "Some input is not an integer")
+        print("Graph items integer test passed!\n")
+
+    def test4_input_vertex_to_self(self):
+        """
+        Test4 checks whether each vertex has 0 path/route to itself
+        """
+        print("Testing if every vertex distance to self is 0...")
+        result = True
+        matrix_size = len(self.input_graph)
+        for i in range(matrix_size):  # i is an item in the list
+            if self.input_graph[i][i] != 0:
+                result = False
+                break
+        self.assertTrue(
+            result, "Some vertices do not have a distance of 0 to themself")
+        print("Vertex to self distance test passed!\n")
+
+    def test5_algorithm_accuracy(self):
+        """
+        Test5 checks whether the result from the algorithm is as expected
+        """
+        print("Testing algorithm accuracy through a known input and expected output...")
+        self.assertEqual(recursive_floyd([[0, 7, NO_PATH, 8],
+                                          [NO_PATH, 0, 5, NO_PATH],
+                                          [NO_PATH, NO_PATH, 0, 2],
+                                          [NO_PATH, NO_PATH, NO_PATH, 0]]),
+                         [[0, 7, 12, 8],
+                          [NO_PATH, 0, 5, 7],
+                          [NO_PATH, NO_PATH, 0, 2],
+                          [NO_PATH, NO_PATH, NO_PATH, 0]],
+                         "Something's wrong about the algorithm, it did not give the expected output")
+        print("Algorithm accuracy test passed!\n")
+
+
+"""
+The main with the unittest refers back to the class that is in the top level.
+By default, once the unit test is run, the program stops running regardless of the outcome of the test.
+the exit=False prevents the program from stopping therefore carrying on with the rest of the code.
+"""
+unittest.main(exit=False)
 
 print("Sample_Input1 before applying the algorithm to it: ")
 print_graph(Sample_Input1)
